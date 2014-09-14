@@ -68,13 +68,18 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dmh-XL-0rK">
-                                                <rect key="frame" x="50" y="15" width="154" height="30"/>
+                                                <rect key="frame" x="50" y="15" width="146" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="AxH-K7-AwM"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="FMV-ah-1Ix"/>
                                                 </connections>
@@ -83,7 +88,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="Hvv-Ob-l8q" firstAttribute="leading" secondItem="MzB-5d-yQn" secondAttribute="leading" id="5C2-Xa-JTs"/>
-                                            <constraint firstAttribute="trailing" secondItem="Dmh-XL-0rK" secondAttribute="trailing" id="A26-Ry-VhT"/>
+                                            <constraint firstAttribute="trailing" secondItem="Dmh-XL-0rK" secondAttribute="trailing" constant="8" id="A26-Ry-VhT"/>
                                             <constraint firstAttribute="height" constant="60" id="Xhk-I8-kck"/>
                                             <constraint firstAttribute="centerY" secondItem="Hvv-Ob-l8q" secondAttribute="centerY" id="YdJ-JG-26o"/>
                                             <constraint firstItem="Dmh-XL-0rK" firstAttribute="leading" secondItem="Hvv-Ob-l8q" secondAttribute="trailing" constant="8" id="aXB-mp-ael"/>
@@ -106,13 +111,18 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="name@example.com" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hMb-Zd-Yu3">
-                                                <rect key="frame" x="50" y="15" width="154" height="30"/>
+                                                <rect key="frame" x="50" y="15" width="146" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="D5Y-3n-k5a"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="97U-3V-tZ5"/>
                                                 </connections>
@@ -120,7 +130,7 @@
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="hMb-Zd-Yu3" secondAttribute="trailing" id="BlX-IZ-ipt"/>
+                                            <constraint firstAttribute="trailing" secondItem="hMb-Zd-Yu3" secondAttribute="trailing" constant="8" id="BlX-IZ-ipt"/>
                                             <constraint firstAttribute="centerY" secondItem="LbK-M0-pAR" secondAttribute="centerY" id="K4a-2R-DRa"/>
                                             <constraint firstItem="hMb-Zd-Yu3" firstAttribute="leading" secondItem="LbK-M0-pAR" secondAttribute="trailing" constant="8" id="OS1-fe-65Y"/>
                                             <constraint firstAttribute="centerY" secondItem="hMb-Zd-Yu3" secondAttribute="centerY" id="P9U-Ou-CMK"/>
@@ -144,13 +154,18 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="**********" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3Al-RI-uYH">
-                                                <rect key="frame" x="150" y="15" width="154" height="30"/>
+                                                <rect key="frame" x="150" y="15" width="146" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="JnU-vi-xfm"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" returnKeyType="next" secureTextEntry="YES"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="AYd-G9-yRu"/>
                                                 </connections>
@@ -159,7 +174,7 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="B9D-ix-f9T"/>
-                                            <constraint firstAttribute="trailing" secondItem="3Al-RI-uYH" secondAttribute="trailing" id="MCl-ay-JMp"/>
+                                            <constraint firstAttribute="trailing" secondItem="3Al-RI-uYH" secondAttribute="trailing" constant="8" id="MCl-ay-JMp"/>
                                             <constraint firstAttribute="centerY" secondItem="3Al-RI-uYH" secondAttribute="centerY" id="VGQ-Rz-SO8"/>
                                             <constraint firstItem="3Al-RI-uYH" firstAttribute="leading" secondItem="7pa-rk-3GZ" secondAttribute="trailing" constant="8" id="nAE-rs-ydk"/>
                                             <constraint firstAttribute="centerY" secondItem="7pa-rk-3GZ" secondAttribute="centerY" id="rWN-YS-8rW"/>
