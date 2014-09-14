@@ -14,6 +14,8 @@
 
 @implementation SRSViewController
 
+#pragma mark UIViewController Methods
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -21,6 +23,25 @@
     self.containerView.layer.borderColor = [UIColor colorWithWhite:0.6 alpha:1].CGColor;
 	// Do any additional setup after loading the view, typically from a nib.
 }
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark IBActions
+
+- (IBAction)submit:(id)sender {
+    if([self validate]) {
+        NSLog(@"Great!");
+    }
+}
+
+- (IBAction)avatarImageTapped:(id)sender {
+}
+
+#pragma mark UITextFieldDelegate Methods
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {
     if(textField.tag == self.fields.count - 1) {
@@ -36,22 +57,8 @@
     textField.backgroundColor = [UIColor clearColor];
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+#pragma mark Validation
 
-- (IBAction)submit:(id)sender {
-    if([self validate]) {
-        NSLog(@"Great!");
-    }
-}
-
-- (IBAction)avatarImageTapped:(id)sender {
-}
-
-#pragma mark Sending Request
 -(BOOL)validate {
     NSString *emailRegex =
     @"(?:[a-z0-9!#$%\\&'*+/=?\\^_`{|}~-]+(?:\\.[a-z0-9!#$%\\&'*+/=?\\^_`{|}"
@@ -76,6 +83,8 @@
         return NO;
     }
 }
+
+#pragma mark Sending Request
 
 -(void)sendRequest {
     
