@@ -134,6 +134,7 @@
     NSMutableArray* results = [NSMutableArray array];
     for(NSNumber* key in [self validationRegexes]) {
         BOOL valid = [self validateTextField:[self formFieldForTag:key.longValue] forRegexp:[[self validationRegexes] objectForKey:key]];
+        [results addObject:@(valid)];
         if(!valid) {
             [self showValidationLabelForTag:key.longValue];
         }
