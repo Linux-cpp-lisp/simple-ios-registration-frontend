@@ -14,7 +14,9 @@
 
 @end
 
-@implementation SRSViewController
+@implementation SRSViewController {
+    UIImage* avatarImage;
+}
 
 #pragma mark UIViewController Methods
 
@@ -23,6 +25,7 @@
     [super viewDidLoad];
     self.containerView.layer.borderWidth = 0.8;
     self.containerView.layer.borderColor = [UIColor colorWithWhite:0.8 alpha:1].CGColor;
+    avatarImage = nil;
 	// Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -45,6 +48,35 @@
 }
 
 - (IBAction)avatarImageTapped:(id)sender {
+    UINavigationController* pickerNav = [self.storyboard instantiateViewControllerWithIdentifier:@"imagePicker"];
+    SRSImagePickerTableViewController* picker = [[pickerNav viewControllers] objectAtIndex:0];
+    if(avatarImage == nil) {
+        [picker loadView];
+        picker.removePhotoCell.userInteractionEnabled = NO;
+        picker.removePhotoCell.textLabel.textColor = [UIColor lightGrayColor];
+    }
+    [picker setCompletionBlock:^(UIImage* image) {
+        avatarImage = image;
+        if(avatarImage != nil) {
+            self.avatarImageView.image = avatarImage;
+        }
+        else {
+            self.avatarImageView.image = [UIImage imageNamed:@"Default Avatar"];
+        }
+    }];
+    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        UIPopoverController* popover = [[UIPopoverController alloc] initWithContentViewController:pickerNav];
+        [popover presentPopoverFromRect:self.avatarImageView.frame inView:self.avatarImageView.superview permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        [picker setCancelBlock:^{
+            [popover dismissPopoverAnimated:YES];
+        }];
+    }
+    else {
+        [self presentViewController:pickerNav animated:YES completion:nil];
+        [picker setCancelBlock:^{
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
+    }
 }
 
 #pragma mark UITextFieldDelegate Methods
