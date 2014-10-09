@@ -8,6 +8,8 @@
 
 #import "SRSViewController.h"
 
+#import <AFNetworking/AFHTTPRequestOperationManager.h>
+
 @interface SRSViewController ()
 
 @end
@@ -20,7 +22,7 @@
 {
     [super viewDidLoad];
     self.containerView.layer.borderWidth = 0.8;
-    self.containerView.layer.borderColor = [UIColor colorWithWhite:0.6 alpha:1].CGColor;
+    self.containerView.layer.borderColor = [UIColor colorWithWhite:0.8 alpha:1].CGColor;
 	// Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -28,6 +30,10 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
 }
 
 #pragma mark IBActions
@@ -86,7 +92,31 @@
 
 #pragma mark Sending Request
 
+-(NSDictionary*)JSONFromInput {
+    return @{@"username": self.usernameField.text,
+             @"email": self.emailField.text,
+             @"password": self.passwordField.text};
+}
+
 -(void)sendRequest {
+    AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
+    [manager POST:[NSString stringWithFormat:@"%@register/", SRSUserSeriviceBaseURL]
+       parameters:[self JSONFromInput]
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              
+          }];
+}
+
+#pragma mark Other
+
+-(void)clearFields {
+    self.usernameField.text = @"";
+    self.emailField.text = @"";
+    self.passwordField.text = @"";
 }
 @end

@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#define SRSUserSeriviceBaseURL @"http://ec2-54-164-170-108.compute-1.amazonaws.com/users/"
+
 @interface SRSViewController : UIViewController <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UIView *containerView;
 @property (weak, nonatomic) IBOutlet UITextField *usernameField;
