@@ -54,18 +54,62 @@
         [self submit:self];
     }
     else {
-        [[self.fields objectAtIndex:textField.tag + 1] becomeFirstResponder];
+        [[self formFieldForTag:textField.tag + 1] becomeFirstResponder];
     }
     return NO;
 }
 
--(void)textFieldDidBeginEditing:(UITextField *)textField {
-    textField.backgroundColor = [UIColor clearColor];
+-(void)textFieldDidEndEditing:(UITextField *)textField {
+    if(![self validateTextField:textField forRegexp:[[self validationRegexes] objectForKey:[NSNumber numberWithLong:textField.tag]]]) {
+        [self showValidationLabelForTag:textField.tag];
+    }
+}
+
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if([self validateTextField:textField forRegexp:[[self validationRegexes] objectForKey:[NSNumber numberWithLong:textField.tag]]]) {
+        [self hideValidationLabelForTag:textField.tag];
+    }
+    return YES;
 }
 
 #pragma mark Validation
 
+-(UITextField*)formFieldForTag:(long)tag {
+    return [self.fields objectAtIndex:[self.fields indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        return ((UIView*)obj).tag == tag;
+    }]];
+}
+
+-(UILabel*)formValidationLabelForTag:(long)tag {
+    return [self.fieldValidationLabels objectAtIndex:[self.fieldValidationLabels indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+        return ((UIView*)obj).tag == tag;
+    }]];
+}
+
+-(void)showValidationLabelForTag:(long)tag {
+    [UIView animateWithDuration:0.1 animations:^{
+        [self formValidationLabelForTag:tag].alpha = 1;
+    }];
+}
+
+-(void)hideValidationLabelForTag:(long)tag {
+    [UIView animateWithDuration:0.1 animations:^{
+        [self formValidationLabelForTag:tag].alpha = 0;
+    }];
+}
+
 -(BOOL)validate {
+    NSMutableArray* results = [NSMutableArray array];
+    for(NSNumber* key in [self validationRegexes]) {
+        BOOL valid = [self validateTextField:[self formFieldForTag:key.longValue] forRegexp:[[self validationRegexes] objectForKey:key]];
+        if(!valid) {
+            [self showValidationLabelForTag:key.longValue];
+        }
+    }
+    return ![results containsObject:@NO];
+}
+
+-(NSDictionary*)validationRegexes {
     NSString *emailRegex =
     @"(?:[a-z0-9!#$%\\&'*+/=?\\^_`{|}~-]+(?:\\.[a-z0-9!#$%\\&'*+/=?\\^_`{|}"
     @"~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\"
@@ -74,9 +118,11 @@
     @"]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-"
     @"9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21"
     @"-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])";
-    return [self validateTextField:self.usernameField forRegexp:@"^.+$"]
-            & [self validateTextField:self.emailField forRegexp:emailRegex]
-            & [self validateTextField:self.passwordField forRegexp:@"^.+$"];
+    return @{
+             @0 : @"^.{1,30}$",
+             @1 : emailRegex,
+             @2 : @"^.{6,}$"
+             };
 }
 
 -(BOOL)validateTextField:(UITextField*)field forRegexp:(NSString*)regexp {
@@ -85,7 +131,6 @@
         return YES;
     }
     else {
-        field.backgroundColor = [[UIColor redColor] colorWithAlphaComponent:0.2];
         return NO;
     }
 }

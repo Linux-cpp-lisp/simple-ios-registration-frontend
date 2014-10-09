@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *emailField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 @property (strong, nonatomic) IBOutletCollection(UITextField) NSArray *fields;
+@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *fieldValidationLabels;
 - (IBAction)submit:(id)sender;
 - (IBAction)avatarImageTapped:(id)sender;
 
