@@ -43,7 +43,7 @@
 
 - (IBAction)submit:(id)sender {
     if([self validate]) {
-        NSLog(@"Great!");
+        [self sendRequest];
     }
 }
 
@@ -169,31 +169,72 @@
 
 #pragma mark Sending Request
 
--(NSDictionary*)JSONFromInput {
-    return @{@"username": self.usernameField.text,
-             @"email": self.emailField.text,
-             @"password": self.passwordField.text};
-}
-
 -(void)sendRequest {
     AFHTTPRequestOperationManager* manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
-    [manager POST:[NSString stringWithFormat:@"%@register/", SRSUserSeriviceBaseURL]
-       parameters:[self JSONFromInput]
-          success:^(AFHTTPRequestOperation *operation, id responseObject) {
-              
-          }
-          failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              
-          }];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [manager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/html"];
+    [manager POST:[NSString stringWithFormat:@"%@register/", SRSUserSeriviceBaseURL] parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        [formData appendPartWithFormData:[self.usernameField.text dataUsingEncoding:NSUTF8StringEncoding] name:@"username"];
+        [formData appendPartWithFormData:[self.emailField.text dataUsingEncoding:NSUTF8StringEncoding] name:@"email"];
+        [formData appendPartWithFormData:[self.passwordField.text dataUsingEncoding:NSUTF8StringEncoding] name:@"password"];
+        if(avatarImage != nil) {
+            [formData appendPartWithFileData:UIImageJPEGRepresentation(avatarImage, 0.8)
+                                        name:@"avatar"
+                                    fileName:@"avatar.jpeg"
+                                    mimeType:@"image/jpeg"];
+        }
+    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [self showMessageBarWithMessage:@"Success! User created."
+                              withColor:SRSMessageBarColorSuccess
+                               animated:YES
+                             completion:nil];
+        [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(successBackToMenu:) userInfo:nil repeats:NO];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [self showMessageBarWithMessage:[[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding]
+                              withColor:SRSMessageBarColorError
+                               animated:YES
+                             completion:nil];
+    }];
 }
 
-#pragma mark Other
+-(void)successBackToMenu:(NSTimer*)timer {
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
 
--(void)clearFields {
-    self.usernameField.text = @"";
-    self.emailField.text = @"";
-    self.passwordField.text = @"";
+#pragma mark Message Bar
+
+-(void)showMessageBarWithMessage:(NSString*)msg withColor:(UIColor*)color animated:(BOOL)animated completion:(void(^)(BOOL))completion {
+    [self hideMessageBarAnimated:animated completion:^(BOOL complete) {
+        self.messageLabel.text = msg;
+        self.messageLabel.backgroundColor = color;
+        if(animated) {
+            [UIView animateWithDuration:0.2 animations:^{
+                self.messageContainerHeightConstraint.constant = 44;
+                [self.view layoutIfNeeded];
+            } completion:completion];
+        }
+        else {
+            self.messageContainerHeightConstraint.constant = 44;
+        }
+    }];
+}
+
+-(void)hideMessageBarAnimated:(BOOL)animated completion:(void(^)(BOOL))completion {
+    if(self.messageContainerHeightConstraint.constant == 0) {
+        if(completion != nil) {
+            completion(YES);
+        }
+        return;
+    }
+    if(animated) {
+        [UIView animateWithDuration:0.2 animations:^{
+            self.messageContainerHeightConstraint.constant = 0;
+            [self.view layoutIfNeeded
+             ];
+        } completion:completion];
+    }
+    else {
+        self.messageContainerHeightConstraint.constant = 0;
+    }
 }
 @end
