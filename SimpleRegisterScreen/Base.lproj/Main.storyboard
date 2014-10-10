@@ -132,6 +132,7 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
+                                                            <action selector="textFieldDidChange:" destination="vXZ-lx-hvc" eventType="editingChanged" id="vFq-dW-MVv"/>
                                                             <outlet property="delegate" destination="vXZ-lx-hvc" id="FMV-ah-1Ix"/>
                                                         </connections>
                                                     </textField>
@@ -185,6 +186,7 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
+                                                            <action selector="textFieldDidChange:" destination="vXZ-lx-hvc" eventType="editingChanged" id="PUt-q7-JMX"/>
                                                             <outlet property="delegate" destination="vXZ-lx-hvc" id="97U-3V-tZ5"/>
                                                         </connections>
                                                     </textField>
@@ -238,6 +240,7 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
+                                                            <action selector="textFieldDidChange:" destination="vXZ-lx-hvc" eventType="editingChanged" id="DT4-zs-ksE"/>
                                                             <outlet property="delegate" destination="vXZ-lx-hvc" id="AYd-G9-yRu"/>
                                                         </connections>
                                                     </textField>
@@ -330,7 +333,7 @@
                                     <constraint firstItem="Snb-cm-uAZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="VAE-5X-OIj" secondAttribute="leading" constant="20" id="fBi-AV-x0A"/>
                                 </constraints>
                             </scrollView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="W0L-qj-eZS">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="12" preferredMaxLayoutWidth="600" translatesAutoresizingMaskIntoConstraints="NO" id="W0L-qj-eZS">
                                 <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" id="zC1-kg-KlO"/>

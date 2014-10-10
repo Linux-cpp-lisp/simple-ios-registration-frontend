@@ -25,5 +25,6 @@
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *fieldValidationLabels;
 - (IBAction)submit:(id)sender;
 - (IBAction)avatarImageTapped:(id)sender;
+- (IBAction)textFieldDidChange:(UITextField*)textField;
 
 @end

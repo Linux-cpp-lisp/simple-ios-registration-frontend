@@ -79,6 +79,12 @@
     }
 }
 
+-(IBAction)textFieldDidChange:(UITextField *)textField {
+    if([self validateTextField:textField forRegexp:[[self validationRegexes] objectForKey:[NSNumber numberWithLong:textField.tag]]]) {
+        [self hideValidationLabelForTag:textField.tag];
+    }
+}
+
 #pragma mark UITextFieldDelegate Methods
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -95,13 +101,6 @@
     if(![self validateTextField:textField forRegexp:[[self validationRegexes] objectForKey:[NSNumber numberWithLong:textField.tag]]]) {
         [self showValidationLabelForTag:textField.tag];
     }
-}
-
--(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    if([self validateTextField:textField forRegexp:[[self validationRegexes] objectForKey:[NSNumber numberWithLong:textField.tag]]]) {
-        [self hideValidationLabelForTag:textField.tag];
-    }
-    return YES;
 }
 
 #pragma mark Validation
